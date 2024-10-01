@@ -1,0 +1,21 @@
+tok : Asks questions such as what is knowledge, how to get knowledge and other weird topics.
+aok : Refers to Areas of Knowledge in TOK, like natural sciences, arts, or human sciences.
+causal : Concerns the relationship between cause and effect, a key concept in scientific experiments and investigations.
+paradigm : A framework or pattern in scientific thinking that shapes how knowledge is interpreted, often shifted by groundbreaking discoveries.
+ethics : Explores moral principles and questions of right and wrong, crucial in discussions across philosophy, biology, and global politics.
+hypothesis: A proposed explanation or prediction that is tested through experimentation, fundamental in scientific inquiry.
+numeracy: The ability to understand and work with numbers, an essential skill in mathematics and the sciences.
+plagiarism: The unethical practice of using someone else's work without proper attribution, a serious offense in academic writing.
+culture: A system of shared beliefs, values, customs, and behaviors, central to subjects like anthropology, history, and global politics.
+rationality: The practice of logical reasoning, often discussed in philosophy, mathematics, and economics.
+empiricism: A theory of knowledge that emphasizes the role of experience and evidence, particularly sensory perception, in the formation of ideas.
+context: The circumstances or setting in which knowledge is produced or understood, important across all IBDP subjects.
+theory: A well-substantiated explanation of some aspect of the natural world, often forming the basis for further research in sciences.
+algorithm: A set of rules or steps used to solve problems, particularly relevant in mathematics and computer science.
+subjectivity: Refers to personal perspectives, feelings, and opinions, often contrasted with objectivity in areas like literature and TOK.
+bias: A tendency to favor one perspective or outcome, often discussed in relation to ethics, history, and human sciences.
+methodology: The system of methods used in a particular area of study, a core concept in research across all subjects.
+interpretation: The act of explaining the meaning of something, crucial in literature, history, and TOK.
+justification: The reasoning behind a belief or action, key to TOK discussions on how we know what we know.
+utility: The value or usefulness of something, often discussed in economics and related to decision-making.
+ambiguity: Uncertainty or inexactness of meaning, a common challenge in literature, philosophy, and interpretation of data.
