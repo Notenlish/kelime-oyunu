@@ -1,4 +1,3 @@
-from random import randrange
 import pygame
 from word import Word
 
@@ -8,6 +7,10 @@ class Game:
         self.db: list[Word] = []
         self.font = pygame.Font("assets/AfacadFlux.ttf", 20)
         self.total_score = 0
+
+        self.hexagon = pygame.image.load_sized_svg(
+            "assets/hexagon.svg", (48, 48)
+        ).convert_alpha()
 
         self.read_db()
 
@@ -22,8 +25,7 @@ class Game:
             inp = r.split(":", maxsplit=1)
             word = inp[0].strip()
             description = inp[1].strip()
-            point = 1000
-            self.db.append(Word(self.font, word, description, point))
+            self.db.append(Word(self.font, self.hexagon, word, description))
 
         self.get_active_word()
 

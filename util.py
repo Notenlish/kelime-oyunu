@@ -25,3 +25,27 @@ def scale_and_add_outline(rect: pygame.Rect, width: int):
     rect.height += width
     rect.center = orig
     return rect
+
+
+def f_time_as_min(time: float):
+    """Formats time as min."""
+    mins = round(time) // 60
+    seconds = round(time - (60 * mins))
+    return f"{mins}:{seconds}"
+
+
+def draw_text_in_rect(
+    font: pygame.Font,
+    text: str,
+    rect: pygame.Rect,
+    canvas: pygame.Surface,
+    safe_width: int = 10,
+):
+    draw_text(
+        canvas,
+        rect.topleft,
+        font,
+        text,
+        True,
+        wraplength=max(rect.w - safe_width, 0),
+    )
