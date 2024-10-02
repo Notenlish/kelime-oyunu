@@ -36,7 +36,7 @@ class Game:
 
     def get_active_word(self, i: int | None = None):
         if i is None:
-            self.active_word = self.db[randrange(0, len(self.db))]
+            self.active_word = self.db[0]
         else:
             self.active_word = self.db[i]
 

@@ -8,8 +8,9 @@ def draw_text(
     text: str,
     antialias: bool,
     color: str | pygame.Color = "black",
+    wraplength: int = 0,
 ):
-    surf = font.render(text, antialias, color)
+    surf = font.render(text, antialias, color, wraplength=wraplength)
     screen.blit(surf, pos)
 
 

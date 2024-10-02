@@ -2,6 +2,7 @@ import pygame
 from letter import Letter
 
 from const import POINT_DEC_FOR_LETTER
+from util import draw_text
 
 
 class Word:
@@ -15,6 +16,16 @@ class Word:
         self.score = point
 
         self._gen_letters()
+
+    def draw_desc(self, rect: pygame.Rect, canvas: pygame.Surface):
+        draw_text(
+            canvas,
+            rect.topleft,
+            self.font,
+            self.description,
+            True,
+            wraplength=max(rect.w - 10, 0),
+        )
 
     def check_letter(self, letter: str):
         if self.score < POINT_DEC_FOR_LETTER:
