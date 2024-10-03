@@ -2,7 +2,7 @@ import pygame
 from letter import Letter
 
 from const import POINT_DEC_FOR_LETTER, POINTS_PER_LETTER
-from util import draw_text, draw_text_in_rect
+from util import draw_text_in_rect
 
 
 class Word:
@@ -15,10 +15,16 @@ class Word:
         self.word = word
         self.description = description
         self.score = len(word) * POINTS_PER_LETTER
+        self.orig_score = self.score
 
         self._gen_letters()
 
-    def draw_desc(self, rect: pygame.Rect, canvas: pygame.Surface, color:str|pygame.Color = "black"):
+    def draw_desc(
+        self,
+        rect: pygame.Rect,
+        canvas: pygame.Surface,
+        color: str | pygame.Color = "black",
+    ):
         draw_text_in_rect(self.font, self.description, rect, canvas, color=color)
 
     def check_letter(self, letter: str):

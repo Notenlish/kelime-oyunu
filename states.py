@@ -1,7 +1,9 @@
-import pygame
-from ui import GameUI, StartUI
-from game import Game
 from typing import TYPE_CHECKING
+
+import pygame
+
+from game import Game
+from ui import GameUI, StartUI
 
 if TYPE_CHECKING:
     from main import App
@@ -12,7 +14,7 @@ class StateManager:
         self.app = app
         self.objs = []
         self.state = None
-        
+
         self.load_start()
 
     def init_objs(self, objs: list[object]):
@@ -29,7 +31,7 @@ class StateManager:
     def load_game(self):
         self.state = "game"
 
-        self.game = Game()
+        self.game = Game(self.app)
         self.app.game = self.game
         self.ui = GameUI(self.app)
         self.init_objs([self.game, self.ui])
@@ -46,8 +48,7 @@ class StateManager:
             case "credits":
                 ...
             case _:
-                print(self.state)
-                raise Exception()
+                raise Exception(f"Undefined State: {self.state}")
 
     def render(self):
         match self.state:
@@ -58,8 +59,7 @@ class StateManager:
             case "credits":
                 ...
             case _:
-                print(self.state)
-                raise Exception()
+                raise Exception(f"Undefined State: {self.state}")
 
     def input(self):
         match self.state:
@@ -80,8 +80,9 @@ class StateManager:
                     if e.type == pygame.KEYDOWN:
                         if e.key == pygame.K_RETURN:
                             self.game.answer()
+                        if e.key == pygame.K_SPACE:
+                            self.game.press_button()
             case "credits":
                 ...
             case _:
-                print(self.state)
-                raise Exception()
+                raise Exception(f"Undefined State: {self.state}")
