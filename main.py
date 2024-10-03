@@ -13,6 +13,7 @@ class App:
         self.sc = pygame.display.set_mode(SC_SIZE, flags=FLAGS)
         self.clock = pygame.time.Clock()
         self.elapsed = 0.0
+        self.dt = 0.0
 
         self.states = StateManager(self)
 
@@ -36,8 +37,8 @@ class App:
             self.update()
             self.render()
 
-            dt = self.clock.tick(60) / 1000  # type:ignore
-            self.elapsed += dt
+            self.dt = self.clock.tick(60) / 1000  # type:ignore
+            self.elapsed += self.dt
             pygame.display.flip()
 
 

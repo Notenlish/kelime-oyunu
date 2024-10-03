@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 from math import sin
 
 from game import Game
-from util import draw_text, draw_text_in_rect
+from util import draw_text, draw_text_in_rect, f_time_as_min
 
 
 if TYPE_CHECKING:
@@ -20,7 +20,11 @@ class GameUI:
         self.canvas = self.app.sc
         self.mili = mili.MILI(self.canvas)
 
+        self.desc_cont_img = pygame.image.load("assets/container.png").convert_alpha()
         self.ali_varol = pygame.image.load("assets/ali-ihsan-varol.png").convert_alpha()
+        
+        self.timefont = pygame.Font("assets/AfacadFlux.ttf", 28)
+        self.timefont.set_bold(True)
 
     def _ui_top(self): ...
 
@@ -46,28 +50,34 @@ class GameUI:
                     {
                         "fillx": "100",
                         "filly": "100",
-                        "pady": "10",
+                        "pady": "5",
                         "padx": 10,  # normally we wouldnt need to do this, but mili ui is buggy.
                         "axis": "y",
                     },
                 ):  # left inner
-                    with m.begin(None, {"filly": "30"}):
-                        ...
+                    with m.begin(
+                        None,
+                        {
+                            "filly": "30",
+                        },
+                    ):
+                        m.rect({"color": "red"})
                     with m.begin(
                         None,
                         {
                             "fillx": "100",
-                            "filly": "30",
+                            "filly": "35",
                             "pady": "0",
                             "padx": 0,
                             "axis": "y",
                         },
                     ):  # topleft
-                        # m.rect({"color": (180,) * 3,"padx": 0,"pady": 0,"border_radius": 2,})
                         with m.begin(
-                            None, {"fillx": "100", "filly": "50"}, get_data=True
+                            None,
+                            {"fillx": "100", "filly": "30", "padx": 0, "pady": 0},
+                            get_data=True,
                         ) as score_cont:  # s
-                            r = score_cont.absolute_rect
+                            r = score_cont.absolute_rect  # type:ignore
 
                             draw_text(
                                 self.canvas,
@@ -77,39 +87,38 @@ class GameUI:
                                 True,
                             )
                         with m.begin(
-                            None, {"fillx": "100", "filly": "50"}, get_data=True
+                            None,
+                            {"fillx": "100", "filly": "50", "padx": 0, "pady": 0},
+                            get_data=True,
                         ) as letters_cont:  # s
-                            r = pygame.Vector2(letters_cont.absolute_rect.topleft)
+                            r = pygame.Vector2(letters_cont.absolute_rect.topleft)  # type:ignore
                             for l in self.game.active_word.letters:  # noqa E741
-                                sep = 10
-                                l.render(r, self.canvas)
+                                sep = -8
+                                l.render(r, self.canvas)  # type:ignore
                                 r.x += l.bg_rect_size.x + sep
-                    with m.begin(None, {"filly": "10"}):
-                        ...
                     with m.begin(
-                        None, {"filly": "50", "fillx": "100"}, get_data=True
+                        None, {"filly": "60", "fillx": "100"}, get_data=True
                     ) as desc_cont:
+                        m.image(self.desc_cont_img)
+
+                        tl = pygame.Vector2(desc_cont.absolute_rect.topleft)
+                        tl.x += 15
+                        tl.y -= 2
+
+                        draw_text(
+                            self.canvas,
+                            tl,
+                            self.timefont,
+                            f_time_as_min(self.game.left_time),
+                            True,
+                            color="#CA1515",
+                        )
                         self.game.active_word.draw_desc(
-                            desc_cont.absolute_rect.move(5, 3),
+                            desc_cont.absolute_rect.move(12, 30),  # type:ignore
                             self.canvas,  # type:ignore
+                            color="white",
                         )
-                        m.rect(
-                            {
-                                "color": "#E7ECEE",
-                                "border_radius": 2,
-                                "padx": 2,
-                                "pady": 2,
-                            }
-                        )
-                        m.rect(
-                            {
-                                "color": "#C5D2D4",
-                                "outline": 1,
-                                "border_radius": 2,
-                                "padx": 2,
-                                "pady": 2,
-                            }
-                        )
+
             with m.begin(
                 None, {"filly": "100", "padx": 5, "pady": 5, "fillx": "30"}
             ):  # right

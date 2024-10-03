@@ -7,12 +7,19 @@ class Game:
         self.db: list[Word] = []
         self.font = pygame.Font("assets/AfacadFlux.ttf", 20)
         self.total_score = 0
+        self.left_time = 4 * 60
 
         self.hexagon = pygame.image.load_sized_svg(
             "assets/hexagon.svg", (48, 48)
         ).convert_alpha()
 
         self.read_db()
+
+    def update(self, dt:float):
+        self.left_time -= dt
+        if self.left_time <= 0:
+            print("Run Out Of Time!")
+            raise SystemExit
 
     def enter_letter(self, char: str):
         self.active_word.check_letter(char)

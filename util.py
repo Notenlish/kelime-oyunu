@@ -31,7 +31,9 @@ def f_time_as_min(time: float):
     """Formats time as min."""
     mins = round(time) // 60
     seconds = round(time - (60 * mins))
-    return f"{mins}:{seconds}"
+    
+    # fill the left with 0 until len = 2 chars
+    return f"{mins}:{seconds:>02}"
 
 
 def draw_text_in_rect(
@@ -40,6 +42,7 @@ def draw_text_in_rect(
     rect: pygame.Rect,
     canvas: pygame.Surface,
     safe_width: int = 10,
+    color: str | pygame.Color = "black",
 ):
     draw_text(
         canvas,
@@ -48,4 +51,5 @@ def draw_text_in_rect(
         text,
         True,
         wraplength=max(rect.w - safe_width, 0),
+        color=color,
     )

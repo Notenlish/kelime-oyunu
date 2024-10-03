@@ -18,8 +18,8 @@ class Word:
 
         self._gen_letters()
 
-    def draw_desc(self, rect: pygame.Rect, canvas: pygame.Surface):
-        draw_text_in_rect(self.font, self.description, rect, canvas)
+    def draw_desc(self, rect: pygame.Rect, canvas: pygame.Surface, color:str|pygame.Color = "black"):
+        draw_text_in_rect(self.font, self.description, rect, canvas, color=color)
 
     def check_letter(self, letter: str):
         if self.score < POINT_DEC_FOR_LETTER:
