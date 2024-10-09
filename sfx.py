@@ -63,9 +63,10 @@ class SFX:
     def check_listeners(self):
         remove: list[pygame.Channel] = []
         for chn, listener in self.channels_events.items():
-            if not chn.get_busy():
-                listener()
-                remove.append(chn)
+            if chn:
+                if not chn.get_busy():
+                    listener()
+                    remove.append(chn)
 
         for to_del in remove:
             del self.channels_events[to_del]

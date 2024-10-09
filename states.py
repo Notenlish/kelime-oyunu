@@ -9,6 +9,10 @@ if TYPE_CHECKING:
     from main import App
 
 
+global CURRENT
+global SINCE_PRESS
+
+
 class StateManager:
     def __init__(self, app: "App") -> None:
         self.app = app
@@ -40,11 +44,22 @@ class StateManager:
         self.state = "credits"
 
     def update(self):
+        SHARED = self.app.SHARED
         match self.state:
             case "start":
                 ...
             case "game":
                 self.game.update(self.app.dt)
+
+                if SHARED["current"]:
+                    if SHARED["since_press"] == -1:  # first frame of pressing
+                        pygame.event.post(
+                            pygame.Event(pygame.KEYDOWN, {"key": pygame.K_SPACE})
+                        )
+                        SHARED["since_press"] = 0
+                else:
+                    # button is not pressed.
+                    SHARED["since_press"] = -1
             case "credits":
                 ...
             case _:
