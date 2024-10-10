@@ -91,12 +91,14 @@ class StateManager:
                         raise SystemExit
                     if e.type == pygame.TEXTINPUT:
                         print(e.text)
-                        self.game.enter_letter(e.text)
+                        # self.game.open_random_letter(e.text)
                     if e.type == pygame.KEYDOWN:
                         if e.key == pygame.K_RETURN:
                             self.game.answer()
                         if e.key == pygame.K_SPACE:
                             self.game.press_button()
+                        if e.key == pygame.K_e:
+                            self.game.open_random_letter()
             case "credits":
                 ...
             case _:

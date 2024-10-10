@@ -27,13 +27,11 @@ class Word:
     ):
         draw_text_in_rect(self.font, self.description, rect, canvas, color=color)
 
-    def check_letter(self, letter: str):
+    def open_letter(self, i: int):
         if self.score < POINT_DEC_FOR_LETTER:
             print(f"The point is lower than {POINT_DEC_FOR_LETTER}")
             return
-        for l in self.letters:  # noqa E741
-            if l.char == letter:
-                l.found = True
+        self.letters[i].found = True
         self.score -= POINT_DEC_FOR_LETTER
 
     def _gen_letters(self):

@@ -1,5 +1,6 @@
 import string as string_stuff
 from typing import TYPE_CHECKING
+from random import randint
 
 import pygame
 
@@ -64,10 +65,8 @@ class Game:
             if self.button_time <= 0:
                 self.fail_button_word_guess()
 
-    def enter_letter(self, char: str):
-        char = char.lower()
-        if char in string_stuff.ascii_lowercase:
-            self.active_word.check_letter(char)
+    def open_random_letter(self):
+        self.active_word.open_letter(randint(0, len(self.active_word.letters) - 1))
 
     def read_db(self):
         with open("questions.txt", "r") as f:
