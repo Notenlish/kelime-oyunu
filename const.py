@@ -1,7 +1,9 @@
 import pygame
 
-DEV = True
-FLAGS = pygame.SCALED | pygame.RESIZABLE if not DEV else 0
+DEV = False
+
+
+FLAGS = pygame.SCALED | pygame.RESIZABLE | pygame.FULLSCREEN if not DEV else 0
 SC_SIZE = SC_W, SC_H = 640, 360
 SC_RECT = pygame.Rect(0, 0, *SC_SIZE)
 

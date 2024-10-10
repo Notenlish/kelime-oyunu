@@ -205,7 +205,7 @@ class StartUI:
 
                     m.rect({"color": "white"})
                     draw_text_in_rect(
-                        self.font, "Welcome To WordGame IBDP Edition!", r, self.canvas
+                        self.font, "SSAL Kelime Oyunu'na HOŞGELDİNİZ!", r, self.canvas
                     )
 
     def _weirds(self):

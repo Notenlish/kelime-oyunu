@@ -15,9 +15,10 @@ def run_serial(com: str):
     global CURRENT
     global THREAD_WILL_RUN
     ser = Serial(com, timeout=5)
-    ser.open()
+    # ser.open()
     try:
         while THREAD_WILL_RUN:
+            print(ser.read_all())
             if ser.in_waiting > 0:
                 data = ser.readline().decode("utf-8").strip()
 
@@ -49,7 +50,7 @@ def main(HOST: str, PORT: int):
     global CURRENT
     global THREAD_WILL_RUN
     com = sys.argv[1]
-    t = threading.Thread(target=run_serial_test, args=(com,))
+    t = threading.Thread(target=run_serial, args=(com,))
     t.start()
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -72,4 +73,7 @@ def main(HOST: str, PORT: int):
 
 
 if __name__ == "__main__":
-    main("127.0.0.1", 12100)
+    try:
+        main("127.0.0.1", 12100)
+    except KeyboardInterrupt:
+        ...
