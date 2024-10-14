@@ -1,13 +1,14 @@
 import pygame
 
-from const import SC_SIZE, FLAGS, SC_W, SC_H
+from const import SC_SIZE, FLAGS
 
 from states import StateManager
 from game import Game
 
-import sys
 import threading
 from local_pc import run_socket
+
+from player import PlayerManager
 
 pygame.font.init()
 
@@ -23,11 +24,11 @@ class App:
 
         self.SHARED = SHARED
 
-        self.states = StateManager(self)
+        self.cur_user_id = 0
+        self.player_manager = PlayerManager()
+        self.states = StateManager(self, self.player_manager)
 
-        self.sock_thread = threading.Thread(
-            target=run_socket, args=(self.SHARED,)
-        )
+        self.sock_thread = threading.Thread(target=run_socket, args=(self.SHARED,))
         self.sock_thread.start()
 
         self.game: None | Game

@@ -156,6 +156,7 @@ class StartUI:
         self.aiv2 = pygame.transform.rotate(self.aiv2, 60)
 
         self.font = pygame.Font("assets/Roboto-Medium.ttf", 22)
+        self.smolfont = pygame.Font("assets/Roboto-Medium.ttf", 18)
 
     def _ui(self):
         m = self.mili
@@ -203,8 +204,8 @@ class StartUI:
 
                     m.rect({"color": "white"})
                     draw_text_in_rect(
-                        self.font,
-                        "SSAL Kelime Oyunu'na HOŞGELDİNİZ!",
+                        self.smolfont,
+                        f"SSAL Kelime Oyunu'na Hoşgeldiniz! Yarışmacımız {self.app.player_manager.players[self.app.cur_user_id].name} bugün bizimle yarışacak.",
                         r.move(3, 3),
                         self.canvas,
                     )
@@ -219,3 +220,38 @@ class StartUI:
         self.mili.update_draw()
         self._ui()
         self._weirds()
+
+
+class CreditsUI:
+    def __init__(self, app: "App") -> None:
+        self.app = app
+        self.canvas = self.app.sc
+        self.mili = mili.MILI(self.canvas)
+
+        self.bg = pygame.image.load("assets/bg.png").convert()
+        self.title = pygame.image.load("assets/title.png").convert_alpha()
+        self.aiv1 = pygame.image.load("assets/aiv1.png").convert_alpha()
+        self.aiv2 = pygame.image.load("assets/aiv2.png").convert_alpha()
+        self.aiv2 = pygame.transform.rotate(self.aiv2, 60)
+
+        self.font = pygame.Font("assets/Roboto-Medium.ttf", 22)
+        self.smolfont = pygame.Font("assets/Roboto-Medium.ttf", 18)
+
+    def _ui(self):
+        players = self.app.player_manager.players
+        m = self.mili
+        m.start({"padx": 0, "pady": 0})
+        with m.begin(
+            SC_RECT,
+            {"padx": 0, "pady": 0, "axis": "y"} | mili.CENTER,
+        ):
+            m.rect({"color": "white", "padx": 0, "pady": 0})
+            for player in players:
+                with m.begin(
+                    None, {"fillx": "100", "filly": "20", "padx": "5", "pady": "5"}
+                ):
+                    m.rect({"color": "#274C77", "border_radius": 10})
+
+    def render(self):
+        self.mili.update_draw()
+        self._ui()

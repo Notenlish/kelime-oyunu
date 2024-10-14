@@ -1,5 +1,3 @@
-import threading
-import time
 import socket
 
 from network_const import own_addr, arduino_addr

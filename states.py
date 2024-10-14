@@ -4,10 +4,11 @@ from const import SC_W, SC_H
 import pygame
 
 from game import Game
-from ui import GameUI, StartUI
+from ui import GameUI, StartUI, CreditsUI
 
 if TYPE_CHECKING:
     from main import App
+    from player import PlayerManager
 
 
 global CURRENT
@@ -15,8 +16,10 @@ global SINCE_PRESS
 
 
 class StateManager:
-    def __init__(self, app: "App") -> None:
+    def __init__(self, app: "App", players: "PlayerManager") -> None:
         self.app = app
+        self.players = players
+
         self.objs = []
         self.state = None
 
@@ -34,7 +37,7 @@ class StateManager:
         self.vid.frame_width = SC_W
         self.vid.frame_height = SC_H
         self.vid.play()
-    
+
     def exit_intro(self):
         self.vid.stop()
 
@@ -54,6 +57,8 @@ class StateManager:
 
     def load_credits(self):
         self.state = "credits"
+
+        self.ui = CreditsUI(self.app)
 
     def update(self):
         SHARED = self.app.SHARED
@@ -91,7 +96,7 @@ class StateManager:
             case "game":
                 self.ui.render()
             case "credits":
-                ...
+                self.ui.render()
             case _:
                 raise Exception(f"Undefined State: {self.state}")
 
@@ -128,6 +133,10 @@ class StateManager:
                         if e.key == pygame.K_e:
                             self.game.open_random_letter()
             case "credits":
-                ...
+                for e in pygame.event.get():
+                    if e.type == pygame.QUIT:
+                        raise SystemExit
+                    if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
+                        raise SystemExit
             case _:
                 raise Exception(f"Undefined State: {self.state}")

@@ -49,9 +49,9 @@ class Letter:
 
             text_rect.move_ip(0, -20)
             dif = self.found_at - self.app.elapsed
-            if dif < -2:
-                dif = 0.55
-            movement = dif * -120 % 42
+            if dif < -0.8:
+                dif = 0.45
+            movement = dif * -140 % 42
             text_rect.move_ip(0, movement)
 
             draw_text(canvas, text_rect.topleft, self.font, self.char_displayed, True)

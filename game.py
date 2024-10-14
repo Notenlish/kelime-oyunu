@@ -1,4 +1,3 @@
-import string as string_stuff
 from typing import TYPE_CHECKING, Literal
 
 import pygame
@@ -51,7 +50,7 @@ class Game:
     def press_button(self):
         def _():
             pass
-            # self._get_active_word()
+            # self.sfx.stop_looping("loop")
 
         self.sfx.play_sfx("press-btn", _)
         self.button_time = BUTTON_TIME
@@ -79,7 +78,7 @@ class Game:
         self.sfx.play_sfx("get-letter")
 
     def read_db(self):
-        with open("questions.txt", "r", encoding="utf-8") as f:
+        with open(f"{self.app.cur_user_id}.txt", "r", encoding="utf-8") as f:
             rows = f.readlines()
 
         for r in rows:
@@ -87,17 +86,26 @@ class Game:
             print(inp)
             word = inp[0].strip()
             description = inp[1].strip()
-            self.db.append(Word(self.app, self, self.bigfont, self.hexagon, word, description))
+            self.db.append(
+                Word(self.app, self, self.bigfont, self.hexagon, word, description)
+            )
 
         self.next_word()
 
     def answer(self):
         """Called if user answers the word."""
+        # self.sfx.stop_looping("loop")
         if self.sub_state == "question":
             self.total_score += self.active_word.score
             self.sub_state = "answer"
             self.active_word.show_all()
+            # uhh
+            # idk why the sound system waits for the correct-guess sound to play in order to stop audio looping
+            # not enough time to fix(more like I want to sleep)
+            # self.sfx.stop_looping("loop")
+            self.reset_button_time()
             self.sfx.stop_looping("loop")
+            # if user pressed button and then guessed correctly, get rid of the fast looping ogg
             self.sfx.play_sfx("correct-guess")
         elif self.sub_state == "answer":
             self.sub_state = "question"
@@ -109,10 +117,32 @@ class Game:
         if self.active_word:
             self.db.remove(self.active_word)
         if len(self.db) == 0:
-            # TODO: move to credits screen
-            print("Kazandınız!")
-        self.reset_button_time()
-        self._get_active_word()
+            # end of round, switch to new player(goes to credits if no user is left)
+            self.end_player_round()
+            print("ENDED")
+        else:
+            # next word
+            self.reset_button_time()
+            self._get_active_word()
+
+    def end_player_round(self):
+        cur_player = self.app.player_manager.players[self.app.cur_user_id]
+        cur_player.score = self.total_score
+        cur_player.time = self.left_time
+        
+        self.sfx.stop_looping("loop")
+        self.button_time = 0
+
+        max_id = len(self.app.player_manager.players) - 1
+        if self.app.cur_user_id == max_id:
+            self.app.states.load_credits()
+            print("Loading Credits")
+        else:
+            self.app.cur_user_id += 1
+            self.app.states.load_start()
+            print("Starting Round for New Player")
+        print("Kazandınız!")
+        print(self.app.player_manager.players)
 
     def _get_active_word(self, i: int | None = None):
         if i is None:

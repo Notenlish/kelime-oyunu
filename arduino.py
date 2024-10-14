@@ -1,5 +1,4 @@
 import threading
-import sys
 from serial import Serial
 import socket
 from socket import AF_INET, SOCK_DGRAM
@@ -41,7 +40,7 @@ try:
                 SHARED["out"] = 0
             out =  str(SHARED["out"]).encode()
             #print(out)
-except Exception as e:
+except Exception:
     SHARED["thread_active"] = False
 except KeyboardInterrupt:
     print("Exiting...")
