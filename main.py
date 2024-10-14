@@ -6,12 +6,12 @@ from states import StateManager
 from game import Game
 
 import sys
-
+import threading
+from local_pc import run_socket
 
 pygame.font.init()
 
-
-SHARED = {"current": False, "thread_will_run": True, "since_press": -1}
+SHARED = {"current": 0, "thread_will_run": True, "since_press": -1}
 
 
 class App:
@@ -24,6 +24,11 @@ class App:
         self.SHARED = SHARED
 
         self.states = StateManager(self)
+
+        self.sock_thread = threading.Thread(
+            target=run_socket, args=(self.SHARED)
+        )
+        self.sock_thread.start()
 
         self.game: None | Game
 

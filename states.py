@@ -1,5 +1,3 @@
-from pygamevideo import Video
-
 from typing import TYPE_CHECKING
 from const import SC_W, SC_H
 
@@ -125,7 +123,8 @@ class StateManager:
                         if e.key == pygame.K_RETURN:
                             self.game.answer()
                         if e.key == pygame.K_SPACE:
-                            self.game.press_button()
+                            if not self.game.button_active:
+                                self.game.press_button()
                         if e.key == pygame.K_e:
                             self.game.open_random_letter()
             case "credits":

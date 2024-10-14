@@ -16,8 +16,8 @@ class Game:
         self.app = app
 
         self.db: list[Word] = []
-        self.font = pygame.Font("assets/AfacadFlux.ttf", 20)
-        self.bigfont = pygame.Font("assets/AfacadFlux.ttf", 22)
+        self.font = pygame.Font("assets/Roboto-Medium.ttf", 20)
+        self.bigfont = pygame.Font("assets/Roboto-Medium.ttf", 20)
         self.total_score = 0
         self.left_time = 4 * 60
         self.button_time = -1

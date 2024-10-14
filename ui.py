@@ -23,7 +23,7 @@ class GameUI:
         self.desc_cont_img = pygame.image.load("assets/container.png").convert_alpha()
         self.person = pygame.image.load("assets/siv.png").convert_alpha()
 
-        self.timefont = pygame.Font("assets/AfacadFlux.ttf", 28)
+        self.timefont = pygame.Font("assets/Roboto-Medium.ttf", 24)
         self.timefont.set_bold(True)
 
     def _ui_top(self): ...
@@ -155,7 +155,7 @@ class StartUI:
         self.aiv2 = pygame.image.load("assets/aiv2.png").convert_alpha()
         self.aiv2 = pygame.transform.rotate(self.aiv2, 60)
 
-        self.font = pygame.Font("assets/AfacadFlux.ttf", 22)
+        self.font = pygame.Font("assets/Roboto-Medium.ttf", 22)
 
     def _ui(self):
         m = self.mili
