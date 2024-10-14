@@ -243,14 +243,59 @@ class CreditsUI:
         m.start({"padx": 0, "pady": 0})
         with m.begin(
             SC_RECT,
-            {"padx": 0, "pady": 0, "axis": "y"} | mili.CENTER,
+            {"padx": "2", "pady": "5", "axis": "y"} | mili.CENTER,
         ):
-            m.rect({"color": "white", "padx": 0, "pady": 0})
+            m.rect({"color": "#A3CEF1", "border_radius": 0, "padx": 0, "pady": 0})
             for player in players:
                 with m.begin(
-                    None, {"fillx": "100", "filly": "20", "padx": "5", "pady": "5"}
+                    None,
+                    {
+                        "fillx": "100",
+                        "filly": "20",
+                        "padx": "10",
+                        "pady": "5",
+                        "axis": "x",
+                    },
                 ):
                     m.rect({"color": "#274C77", "border_radius": 10})
+                    with m.begin(
+                        None, {"fillx": "20", "filly": "100"}, get_data=True
+                    ) as c:
+                        draw_text_in_rect(
+                            self.font,
+                            player.name,
+                            c.absolute_rect.move(5, 6),
+                            self.canvas,
+                            color="white",
+                        )
+                    with m.begin(
+                        None, {"fillx": "30", "filly": "100"}, get_data=True
+                    ) as c:
+                        draw_text_in_rect(
+                            self.font,
+                            f"{player.time:.2f}",
+                            c.absolute_rect.move(5, 6),
+                            self.canvas,
+                            color="white",
+                        )
+                    with m.begin(
+                        None, {"fillx": "20", "filly": "100"}, get_data=True
+                    ) as c:
+                        draw_text_in_rect(
+                            self.font,
+                            f"{player.score}",
+                            c.absolute_rect.move(5, 6),
+                            self.canvas,
+                            color="white",
+                        )
+                with m.begin(
+                    None,
+                    {
+                        "fillx": "100",
+                        "filly": "5",
+                    },
+                ):
+                    ...
 
     def render(self):
         self.mili.update_draw()

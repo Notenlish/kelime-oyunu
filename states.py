@@ -58,6 +58,9 @@ class StateManager:
     def load_credits(self):
         self.state = "credits"
 
+        # descending based on score --> highest score is at the top
+        self.app.player_manager.players.sort(key=lambda x: x.score, reverse=True)
+
         self.ui = CreditsUI(self.app)
 
     def update(self):
