@@ -7,7 +7,7 @@ from network_const import own_addr, arduino_addr
 
 SHARED = {
     "out":0,
-    "thread_active":False
+    "thread_active":True
 }
 
 def conn():
@@ -15,6 +15,7 @@ def conn():
         s.bind(arduino_addr)
         print(f"Connected to {own_addr}")        
         while SHARED["thread_active"]:
+            print("aAAAAAAA")
             data, addr = s.recvfrom(1024)
             if not data:
                 break
@@ -39,7 +40,7 @@ try:
             else:
                 SHARED["out"] = 0
             out =  str(SHARED["out"]).encode()
-            print(out)
+            #print(out)
 except Exception as e:
     SHARED["thread_active"] = False
 except KeyboardInterrupt:

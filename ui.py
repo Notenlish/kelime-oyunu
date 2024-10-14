@@ -101,7 +101,7 @@ class GameUI:
 
                         tl = pygame.Vector2(desc_cont.absolute_rect.topleft)
                         tl.x += 15
-                        tl.y -= 2
+                        tl.y += 4
 
                         draw_text(
                             self.canvas,
@@ -112,7 +112,7 @@ class GameUI:
                             color="#CA1515",
                         )
                         self.game.active_word.draw_desc(
-                            desc_cont.absolute_rect.move(12, 30),  # type:ignore
+                            desc_cont.absolute_rect.move(12, 36),  # type:ignore
                             self.canvas,  # type:ignore
                             color="white",
                         )

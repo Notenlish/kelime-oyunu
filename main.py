@@ -26,7 +26,7 @@ class App:
         self.states = StateManager(self)
 
         self.sock_thread = threading.Thread(
-            target=run_socket, args=(self.SHARED)
+            target=run_socket, args=(self.SHARED,)
         )
         self.sock_thread.start()
 

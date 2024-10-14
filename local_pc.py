@@ -11,6 +11,7 @@ def run_socket(SHARED: dict):
             s.bind(own_addr)
             while SHARED["thread_will_run"]:
                 s.sendto(b"Hello, world", arduino_addr)
+                
                 data, addr = s.recvfrom(1024)
                 print(f"Received {data!r}")
                 if b"1" in data:
@@ -20,8 +21,3 @@ def run_socket(SHARED: dict):
     except KeyboardInterrupt:
         print("Keyboard Interrupt. Ending Process.")
 
-
-if __name__ == "__main__":
-    HOST = "127.0.0.1"  # The server's hostname or IP address
-    PORT = 12100  # The port used by the server
-    run_socket(HOST, PORT)
