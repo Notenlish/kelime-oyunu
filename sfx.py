@@ -24,9 +24,12 @@ class SFX:
                 "win": "win.mp3",
                 "failed": "failed.mp3",
                 "wohwoh": "wuah-wuah-wuaaah.mp3",
-                "btn-click": "btn-click.mp3",
+                "btn-click": "btn-click.ogg",
                 "transition": "transition.mp3",
-                "press-btn": "press-btn.mp3",
+                "press-btn": "btn-click.mp3",
+                "loop": "loop.ogg",
+                "get-letter": "num-go-up.ogg",
+                "correct-guess": "num-go-up.ogg",
             }.items()
         }
 
@@ -37,12 +40,10 @@ class SFX:
         if not self.game.button_active:
             raise Exception("Cannot be called while button is not active!")
         t = self.game.button_time
-        if t < 10:
-            return "assets/sounds/fast.mp3"
-        elif t < 20:
-            return "assets/sounds/medium.mp3"
+        if t < 15:
+            return "assets/sounds/fast.ogg"
         else:
-            return "assets/sounds/slow.mp3"
+            return "assets/sounds/empty.ogg"
 
     def play_tick_tock(self, name: str):
         m = pygame.mixer.music
@@ -57,8 +58,22 @@ class SFX:
         if not listener:
             listener = _
 
+        print("playing sound")
         channel = self.sounds[name].play()
         self.channels_events[channel] = listener
+
+    def play_looping(self, name: str, listener: SoundEventListener | None = None):
+        def _(): ...
+
+        if not listener:
+            listener = _
+
+        s = self.sounds[name]
+        channel = s.play(loops=-1)
+        self.channels_events[channel] = listener
+
+    def stop_looping(self, name: str):
+        self.sounds[name].stop()
 
     def check_listeners(self):
         remove: list[pygame.Channel] = []

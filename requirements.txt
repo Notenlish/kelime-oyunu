@@ -1,3 +1,5 @@
 pygame-ce
 mili-ui
 pyserial
+# moviepy
+# pygamevideo

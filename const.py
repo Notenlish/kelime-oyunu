@@ -1,6 +1,6 @@
 import pygame
 
-DEV = False
+DEV = True
 
 
 FLAGS = pygame.SCALED | pygame.RESIZABLE | pygame.FULLSCREEN if not DEV else 0

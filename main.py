@@ -1,12 +1,10 @@
 import pygame
 
-from const import SC_SIZE, FLAGS
+from const import SC_SIZE, FLAGS, SC_W, SC_H
 
 from states import StateManager
 from game import Game
 
-import threading
-from local_pc import run_socket
 import sys
 
 
@@ -24,14 +22,6 @@ class App:
         self.dt = 0.0
 
         self.SHARED = SHARED
-
-        host = sys.argv[1]
-        port = int(sys.argv[2])
-
-        self.sock_thread = threading.Thread(
-            target=run_socket, args=(host, port, self.SHARED)
-        )
-        self.sock_thread.start()
 
         self.states = StateManager(self)
 

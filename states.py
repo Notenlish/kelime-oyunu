@@ -1,4 +1,7 @@
+from pygamevideo import Video
+
 from typing import TYPE_CHECKING
+from const import SC_W, SC_H
 
 import pygame
 
@@ -26,6 +29,17 @@ class StateManager:
             del obj
         self.objs = objs
 
+    def load_intro(self):
+        self.state = "intro"
+
+        self.vid = Video("assets/cropped.mp4")
+        self.vid.frame_width = SC_W
+        self.vid.frame_height = SC_H
+        self.vid.play()
+    
+    def exit_intro(self):
+        self.vid.stop()
+
     def load_start(self):
         self.state = "start"
 
@@ -46,6 +60,11 @@ class StateManager:
     def update(self):
         SHARED = self.app.SHARED
         match self.state:
+            case "intro":
+                # self.vid.draw_to(self.sc, (0, 0))
+                if self.vid.remaining_time < 400:
+                    self.exit_intro()
+                    self.load_start()
             case "start":
                 ...
             case "game":
@@ -67,6 +86,8 @@ class StateManager:
 
     def render(self):
         match self.state:
+            case "intro":
+                self.vid.draw_to(self.app.sc, (0, 0))
             case "start":
                 self.ui.render()
             case "game":
@@ -78,6 +99,14 @@ class StateManager:
 
     def input(self):
         match self.state:
+            case "intro":
+                for e in pygame.event.get():
+                    if e.type == pygame.QUIT:
+                        raise SystemExit
+                    if e.type == pygame.KEYDOWN:
+                        if e.key == pygame.K_RETURN or e.key == pygame.K_KP_ENTER:
+                            self.exit_intro()
+                            self.load_start()
             case "start":
                 for e in pygame.event.get():
                     if e.type == pygame.QUIT:
