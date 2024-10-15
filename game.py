@@ -41,8 +41,10 @@ class Game:
         """Called when the player cannot guess the word correctly when they have pressed the button."""
         self.total_score -= self.active_word.orig_score
         self.reset_button_time()
-        self.next_word()
+        self.active_word.show_all()
+        self.sub_state = "answer"
         self.sfx.play_sfx("failed")
+        self.sfx.stop_looping("loop")
 
     def reset_button_time(self):
         self.button_time = -1
