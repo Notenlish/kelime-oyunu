@@ -28,7 +28,7 @@ class App:
         self.player_manager = PlayerManager()
         self.states = StateManager(self, self.player_manager)
 
-        self.sock_thread = threading.Thread(target=run_socket, args=(self.SHARED,), daemon=True)
+        self.sock_thread = threading.Thread(target=run_socket, args=(self.SHARED,))
         self.sock_thread.start()
 
         self.game: None | Game
