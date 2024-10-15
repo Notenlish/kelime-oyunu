@@ -64,7 +64,7 @@ class Game:
                 if self.left_time <= 0:
                     # TODO: CHANGE TO CREDITS/END SCENE
                     print("Run Out Of Time!")
-                    raise SystemExit
+                    self.app.quit()
             elif self.button_active:
                 self.button_time -= dt
                 if self.button_time <= 0:
@@ -83,7 +83,6 @@ class Game:
 
         for r in rows:
             inp = r.split(":", maxsplit=1)
-            print(inp)
             word = inp[0].strip()
             description = inp[1].strip()
             self.db.append(
@@ -141,8 +140,6 @@ class Game:
             self.app.cur_user_id += 1
             self.app.states.load_start()
             print("Starting Round for New Player")
-        print("Kazandınız!")
-        print(self.app.player_manager.players)
 
     def _get_active_word(self, i: int | None = None):
         if i is None:

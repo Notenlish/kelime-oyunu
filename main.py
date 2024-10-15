@@ -28,12 +28,18 @@ class App:
         self.player_manager = PlayerManager()
         self.states = StateManager(self, self.player_manager)
 
-        self.sock_thread = threading.Thread(target=run_socket, args=(self.SHARED,))
+        self.sock_thread = threading.Thread(target=run_socket, args=(self.SHARED,), daemon=True)
         self.sock_thread.start()
 
         self.game: None | Game
 
         pygame.key.start_text_input()
+
+    def quit(self):
+        print("please quit")
+        self.SHARED["thread_will_run"] = False
+        pygame.key.stop_text_input()
+        raise SystemExit
 
     def input(self):
         self.states.input()

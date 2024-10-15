@@ -108,7 +108,7 @@ class StateManager:
             case "intro":
                 for e in pygame.event.get():
                     if e.type == pygame.QUIT:
-                        raise SystemExit
+                        self.app.quit()
                     if e.type == pygame.KEYDOWN:
                         if e.key == pygame.K_RETURN or e.key == pygame.K_KP_ENTER:
                             self.exit_intro()
@@ -116,14 +116,14 @@ class StateManager:
             case "start":
                 for e in pygame.event.get():
                     if e.type == pygame.QUIT:
-                        raise SystemExit
+                        self.app.quit()
                     if e.type == pygame.KEYDOWN:
                         if e.key == pygame.K_RETURN:
                             self.load_game()
             case "game":
                 for e in pygame.event.get():
                     if e.type == pygame.QUIT:
-                        raise SystemExit
+                        self.app.quit()
                     if e.type == pygame.TEXTINPUT:
                         print(e.text)
                         # self.game.open_random_letter(e.text)
@@ -138,8 +138,8 @@ class StateManager:
             case "credits":
                 for e in pygame.event.get():
                     if e.type == pygame.QUIT:
-                        raise SystemExit
+                        self.app.quit()
                     if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
-                        raise SystemExit
+                        self.app.quit()
             case _:
                 raise Exception(f"Undefined State: {self.state}")
